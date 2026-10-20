@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#fff0f5">
+  <title>Tặng vợ Trang iu của Trung Anh ♡</title>
+  <style>
+    /* ===== BẢNG MÀU & THIẾT LẬP CHUNG ===== */
+    :root {
+      --pink: #f6a9c3;
+      --rose: #d96d91;
+      --deep-rose: #a84469;
+      --cream: #fffaf8;
+      --ink: #75485a;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; min-height: 100%; }
+    body {
+      min-height: 100vh;
+      overflow-x: hidden;
+      color: var(--ink);
+      font-family: "Trebuchet MS", "Segoe UI", system-ui, sans-serif;
+      background: radial-gradient(ellipse at top, #fffafd 0%, #fff0f5 48%, #ffe4ed 100%);
+    }
+    button, input { font: inherit; }
+    button { -webkit-tap-highlight-color: transparent; }
+    .screen {
+      min-height: 100svh;
+      width: 100%;
+      display: none;
+      position: relative;
+      z-index: 1;
+      padding: 28px 18px;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+      animation: screenIn .8s ease both;
+    }
+    .screen.active { display: flex; }
+    @keyframes screenIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ===== CÁNH HOA RƠI Ở NỀN ===== */
+    #petals { position: fixed; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; }
+    .petal {
+      position: absolute;
+      top: -40px;
+      width: 13px;
+      height: 19px;
+      border-radius: 80% 0 80% 0;
+      background: linear-gradient(135deg, #ffd6e4, #e98eac);
+      opacity: .65;
+      animation: fall linear infinite;
+      filter: drop-shadow(0 2px 2px #d77b9630);
+    }
+    @keyframes fall {
+      0% { transform: translate3d(0, -5vh, 0) rotate(0deg); }
+      50% { transform: translate3d(35px, 52vh, 0) rotate(220deg); }
+      100% { transform: translate3d(-25px, 110vh, 0) rotate(480deg); }
+    }
+
+    /* ===== MÀN HÌNH 1: KHÓA MẬT MÃ ===== */
+    .lock-card {
+      width: min(100%, 420px);
+      padding: 34px 26px;
+      border: 1px solid #ffffffd9;
+      border-radius: 30px;
+      background: #ffffffb8;
+      box-shadow: 0 18px 60px #c66d8b1c, inset 0 1px 0 white;
+      backdrop-filter: blur(12px);
+    }
+    .tiny-heart { font-size: 32px; animation: heartbeat 1.8s ease-in-out infinite; }
+    @keyframes heartbeat { 50% { transform: scale(1.13); } }
+    h1, h2, p { margin-top: 0; }
+    .eyebrow {
+      margin: 8px 0 10px;
+      color: var(--rose);
+      font-size: .75rem;
+      font-weight: 800;
+      letter-spacing: .19em;
+      text-transform: uppercase;
+    }
+    h1 { margin-bottom: 10px; font-family: Georgia, serif; font-size: clamp(1.8rem, 7vw, 2.45rem); font-weight: 500; }
+    .subtext { color: #a87589; line-height: 1.7; font-size: .98rem; }
+    .lock-form { display: flex; gap: 9px; margin-top: 24px; }
+    #passcode {
+      width: 0; min-width: 0; flex: 1;
+      padding: 14px 16px;
+      text-align: center; letter-spacing: .25em;
+      border: 1.5px solid #f1c0d0; border-radius: 15px;
+      color: var(--deep-rose); background: #fffafd;
+      outline: none; transition: border .2s, box-shadow .2s;
+    }
+    #passcode:focus { border-color: var(--rose); box-shadow: 0 0 0 4px #f6a9c329; }
+    .pink-button {
+      border: 0; border-radius: 15px; padding: 13px 18px;
+      color: white; font-weight: 750; cursor: pointer;
+      background: linear-gradient(135deg, #f3a6bf, #d96d91);
+      box-shadow: 0 8px 20px #d96d9138; transition: transform .2s, filter .2s;
+    }
+    .pink-button:hover { filter: brightness(1.03); transform: translateY(-2px); }
+    .pink-button:active { transform: scale(.97); }
+    #errorMessage { min-height: 26px; margin: 15px 0 0; color: #cc6287; font-size: .9rem; }
+
+    /* ===== MÀN HÌNH 2: BÓ HOA ===== */
+    .flower-heading { margin-bottom: 0; font-family: Georgia, serif; font-size: clamp(1.8rem, 6vw, 2.5rem); font-weight: 500; }
+    .flower-note { margin: 10px 0 0; color: #b16a84; }
+    .bouquet-button {
+      display: block; width: min(88vw, 410px); margin: 4px auto 0; padding: 0;
+      border: 0; background: transparent; cursor: pointer; outline-offset: 7px;
+      animation: float 4.2s ease-in-out infinite;
+    }
+    .bouquet-button svg { display: block; width: 100%; height: auto; overflow: visible; filter: drop-shadow(0 18px 18px #b65d7b20); }
+    @keyframes float { 0%, 100% { transform: translateY(0) rotate(-1deg); } 50% { transform: translateY(-13px) rotate(1deg); } }
+    .tap-hint { margin: 4px 0 0; color: #c75e86; font-weight: 700; animation: twinkle 1.5s ease-in-out infinite; cursor: pointer; }
+    @keyframes twinkle { 50% { opacity: .48; } }
+
+    /* ===== MÀN HÌNH 3: THIỆP & HIỆU ỨNG GÕ CHỮ ===== */
+    .letter {
+      width: min(100%, 720px);
+      max-height: 86svh;
+      overflow-y: auto;
+      padding: clamp(25px, 6vw, 48px);
+      text-align: left;
+      border: 1px solid #f3d4dc;
+      border-radius: 7px 24px 7px 24px;
+      background:
+        repeating-linear-gradient(transparent 0 31px, #f2d9df7a 32px 33px),
+        linear-gradient(120deg, #fffefa, #fff8f4);
+      box-shadow: 0 22px 70px #a957741f;
+      position: relative;
+    }
+    .letter::before {
+      content: "♡"; position: absolute; right: 19px; top: 8px;
+      color: #e8a2b8; font-size: 25px;
+    }
+    .letter-date { text-align: right; color: #b87b90; font-family: Georgia, serif; font-style: italic; }
+    .letter h2 { color: #b9577b; text-align: center; font-family: Georgia, serif; font-size: clamp(1.6rem, 6vw, 2.2rem); font-weight: 500; }
+    #typedMessage {
+      white-space: pre-wrap; overflow-wrap: anywhere;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(1rem, 3.8vw, 1.13rem);
+      line-height: 2.05;
+      color: #75485a;
+      min-height: 170px;
+    }
+    .cursor { display: inline-block; width: 2px; height: 1.1em; vertical-align: -2px; background: #d96d91; animation: blink .8s step-end infinite; }
+    @keyframes blink { 50% { opacity: 0; } }
+    .signature { text-align: right; color: #b9577b; font-family: Georgia, serif; font-style: italic; font-size: 1.1rem; }
+    .small-footer { margin-top: 18px; font-size: .8rem; color: #bd8a9c; text-align: center; }
+    @media (max-width: 420px) {
+      .lock-card { padding: 29px 19px; }
+      .lock-form { flex-direction: column; }
+      #passcode { width: 100%; flex: auto; }
+      .pink-button { width: 100%; }
+      .letter { max-height: 90svh; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; }
+    }
+  </style>
+</head>
+<body>
+  <div id="petals" aria-hidden="true"></div>
+
+  <!-- MÀN HÌNH 1: Nhập mật mã -->
+  <main>
+    <section id="screen1" class="screen active" aria-labelledby="lockTitle">
+      <div class="lock-card">
+        <div class="tiny-heart" aria-hidden="true">💗</div>
+        <p class="eyebrow">có quà có quà</p>
+        <h1 id="lockTitle">xin chàoo</h1>
+        <p class="subtext">trang nhớ ngày kết nối yêu thương khôngg.<br>nhập ngày đó vô là mở được </p>
+        <form id="lockForm" class="lock-form">
+          <input id="passcode" type="password" inputmode="numeric" autocomplete="off"
+                 placeholder="tyeu nhập ở đây" aria-label="Nhập mật mã" required>
+          <button class="pink-button" type="submit">okokok ♡</button>
+        </form>
+        <p id="errorMessage" role="status" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <!-- MÀN HÌNH 2: Bó hoa hồng minh họa bằng SVG, không cần tải ảnh ngoài -->
+    <section id="screen2" class="screen" aria-labelledby="flowerTitle">
+      <p class="eyebrow">For the loveliest girl</p>
+      <h2 class="flower-heading" id="flowerTitle">hoa tặng vợ iuu </h2>
+      <p class="flower-note">hoa là giả còn tình yêu là thật</p>
+      <button class="bouquet-button" id="openLetter" aria-label="mở thiệp">
+        <svg viewBox="0 0 400 430" role="img" aria-label="Bó hoa hồng phấn được gói giấy hồng pastel">
+          <defs>
+            <linearGradient id="wrap" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#fff0f3"/><stop offset=".55" stop-color="#f7c8d6"/><stop offset="1" stop-color="#e9a9c0"/>
+            </linearGradient>
+            <linearGradient id="paper" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#fff8f4"/><stop offset="1" stop-color="#f1dce2"/>
+            </linearGradient>
+            <radialGradient id="rose" cx=".35" cy=".3" r=".8">
+              <stop offset="0" stop-color="#ffe7ee"/><stop offset=".55" stop-color="#f3a6bd"/><stop offset="1" stop-color="#c85e83"/>
+            </radialGradient>
+            <radialGradient id="rose2" cx=".3" cy=".25" r=".85">
+              <stop offset="0" stop-color="#fff0f3"/><stop offset=".6" stop-color="#e98baa"/><stop offset="1" stop-color="#b94d75"/>
+            </radialGradient>
+          </defs>
+          <!-- Lá và thân -->
+          <g fill="none" stroke="#668c70" stroke-width="5" stroke-linecap="round">
+            <path d="M194 228 Q190 290 207 355"/><path d="M154 219 Q174 280 198 350"/>
+            <path d="M237 214 Q223 280 210 354"/><path d="M126 245 Q168 290 198 354"/>
+            <path d="M265 246 Q231 297 211 355"/>
+          </g>
+          <g fill="#83a889" stroke="#668c70" stroke-width="1.5">
+            <path d="M174 279 Q126 244 113 269 Q137 302 174 279Z"/>
+            <path d="M219 290 Q254 247 279 264 Q269 295 219 290Z"/>
+            <path d="M190 319 Q147 290 137 312 Q160 339 190 319Z"/>
+            <path d="M218 326 Q253 297 268 316 Q249 341 218 326Z"/>
+            <path d="M156 253 Q117 221 105 240 Q126 269 156 253Z"/>
+          </g>
+          <!-- Giấy gói phía sau -->
+          <path d="M81 177 L188 234 L154 374 Q108 324 68 231Z" fill="url(#paper)" stroke="#edc8d3" stroke-width="2"/>
+          <path d="M319 176 L216 235 L253 375 Q298 321 333 231Z" fill="url(#paper)" stroke="#edc8d3" stroke-width="2"/>
+          <path d="M104 211 L198 252 L178 369 Q137 322 104 211Z" fill="#f8dbe4" opacity=".8"/>
+          <path d="M296 210 L209 253 L232 369 Q274 319 296 210Z" fill="#f5c8d7" opacity=".8"/>
+          <!-- Bó hoa hồng -->
+          <g transform="translate(0,-3)">
+            <g transform="translate(130 151)">
+              <circle r="40" fill="url(#rose)"/>
+              <path d="M-27 -10 Q-11 -39 9 -20 Q28 -34 31 -8 Q49 7 26 22 Q18 43 -4 28 Q-29 37 -28 11 Q-45 -1 -27 -10Z" fill="#f9bfd0"/>
+              <path d="M-18 -6 Q-4 -25 12 -9 Q28 -5 15 11 Q8 26 -9 15 Q-25 13 -18 -6Z" fill="#e78aa8"/>
+              <path d="M-8 -4 Q0 -15 10 -5 Q15 5 4 10 Q-7 9 -8 -4Z" fill="#c95b80"/>
+            </g>
+            <g transform="translate(200 116)">
+              <circle r="44" fill="url(#rose2)"/>
+              <path d="M-29 -15 Q-10 -43 9 -23 Q33 -37 34 -8 Q49 9 23 24 Q14 43 -7 28 Q-34 38 -30 8 Q-47 -4 -29 -15Z" fill="#f7b1c6"/>
+              <path d="M-18 -9 Q-2 -29 15 -12 Q31 -3 14 14 Q5 30 -12 15 Q-28 11 -18 -9Z" fill="#e987a5"/>
+              <path d="M-8 -5 Q2 -16 12 -4 Q15 6 3 11 Q-8 9 -8 -5Z" fill="#bd4f78"/>
+            </g>
+            <g transform="translate(270 155)">
+              <circle r="39" fill="url(#rose)"/>
+              <path d="M-27 -12 Q-12 -38 8 -20 Q30 -33 31 -6 Q48 9 24 22 Q15 41 -5 27 Q-29 36 -28 9 Q-43 -2 -27 -12Z" fill="#fbd0dc"/>
+              <path d="M-16 -7 Q-1 -25 13 -10 Q28 -2 13 13 Q4 27 -10 14 Q-25 10 -16 -7Z" fill="#e57fa0"/>
+              <path d="M-7 -4 Q1 -13 9 -4 Q14 5 3 9 Q-7 8 -7 -4Z" fill="#bd4f78"/>
+            </g>
+            <g transform="translate(164 204)">
+              <circle r="35" fill="url(#rose2)"/>
+              <path d="M-24 -9 Q-9 -32 8 -18 Q27 -27 27 -5 Q42 9 20 20 Q12 36 -5 24 Q-27 31 -25 8 Q-39 -1 -24 -9Z" fill="#f7b5c9"/>
+              <path d="M-14 -5 Q-1 -22 12 -8 Q25 0 11 12 Q3 24 -9 12 Q-22 9 -14 -5Z" fill="#d96d91"/>
+              <path d="M-6 -3 Q1 -12 8 -3 Q11 4 2 8 Q-6 7 -6 -3Z" fill="#b84b73"/>
+            </g>
+            <g transform="translate(235 205)">
+              <circle r="35" fill="url(#rose)"/>
+              <path d="M-24 -10 Q-9 -32 8 -18 Q27 -28 27 -5 Q42 9 20 20 Q12 36 -5 24 Q-27 31 -25 8 Q-39 -1 -24 -10Z" fill="#ffd8e2"/>
+              <path d="M-14 -5 Q-1 -22 12 -8 Q25 0 11 12 Q3 24 -9 12 Q-22 9 -14 -5Z" fill="#e581a1"/>
+              <path d="M-6 -3 Q1 -12 8 -3 Q11 4 2 8 Q-6 7 -6 -3Z" fill="#bd4f78"/>
+            </g>
+          </g>
+          <!-- Dải ruy băng -->
+          <path d="M143 291 Q202 316 260 288 L244 337 Q202 354 158 336Z" fill="#d77b9c" stroke="#c76589" stroke-width="2"/>
+          <path d="M178 323 Q154 350 150 379 Q179 371 202 344Z" fill="#edacc1" stroke="#c76589" stroke-width="2"/>
+          <path d="M218 326 Q249 344 261 371 Q230 367 203 345Z" fill="#f4bfd0" stroke="#c76589" stroke-width="2"/>
+          <ellipse cx="202" cy="321" rx="22" ry="15" fill="#f9d4df" stroke="#c76589" stroke-width="2"/>
+          <path d="M191 321 Q200 310 207 321 Q215 330 202 332 Q189 331 191 321Z" fill="#d77b9c"/>
+          <g fill="#e6a0b6" opacity=".8">
+            <circle cx="78" cy="131" r="3"/><circle cx="318" cy="116" r="4"/><circle cx="305" cy="288" r="3"/><circle cx="93" cy="302" r="4"/>
+          </g>
+        </svg>
+      </button>
+      <p class="tap-hint" id="tapHint">cham vào đây để mở  ✨</p>
+    </section>
+
+    <!-- MÀN HÌNH 3: Lời chúc được gõ từng ký tự -->
+    <section id="screen3" class="screen" aria-labelledby="letterTitle">
+      <article class="letter">
+        <p class="letter-date">gửi tình iu ♡</p>
+        <h2 id="letterTitle">gửi vợ tương lai</h2>
+        <div id="typedMessage" aria-live="polite"></div><span class="cursor" id="typingCursor" aria-hidden="true"></span>
+        <p class="signature" id="signature" hidden>yêu trang nhiều ♡</p>
+        <p class="small-footer">mong bminh sẽ mãi bên nhau 🌷</p>
+      </article>
+    </section>
+  </main>
+
+  <!--
+    ================== PHẦN CẤU HÌNH DỄ CHỈNH ==================
+    1) Đổi mật mã: sửa SECRET_CODE bên dưới.
+    2) Đổi nhạc: sửa MUSIC_URL thành URL MP3 trực tiếp hoặc tên file MP3
+       đặt cùng thư mục với index.html (ví dụ: "anh-the-day.mp3").
+       Hãy dùng file/đường dẫn bạn có quyền sử dụng.
+    3) Đổi lời chúc: sửa MESSAGE. Giữ nguyên dấu ` ở đầu và cuối.
+    4) Đổi chữ ký: sửa SIGNATURE.
+    ============================================================
+  -->
+  <audio id="backgroundMusic" loop preload="auto"></audio>
+
+  <script>
+    // ===== 1. CẤU HÌNH: BẠN CHỈ CẦN SỬA Ở ĐÂY =====
+    const SECRET_CODE = "2807"; // Đổi mật mã tại đây
+    const MUSIC_URL = "anhthelayeumaitrang.mp3"; // Đổi thành URL MP3 trực tiếp nếu muốn
+    const MESSAGE = `chào đồ đáng yêu. 💗
+
+chúc tình yêu 20/10 vui vẻ mạnh khoẻ hạnh phúc, luôn được yêu thương và trân trọng bởi mng xung quanh. chúc trang sớm đồng ý yêu trung anh. mong trang luôn đáng yêu và cte như vậy, trung anh yêu trang lắm.
+dẫu biết là đôi khi còn có những cãi vã. nhưng sau tất cả trung anh chỉ mong bọn minhf được ở bên nhau thật lâuu
+trung anh dz chồng tương lai của vợ trang iu 💝💖💕❤️‍🔥💑. `;
+    const SIGNATURE = "iu vợ hâm nhiều♡"; // Đổi chữ ký tại đây
+
+    // ===== 2. TẠO CÁNH HOA RƠI =====
+    const petalsContainer = document.getElementById("petals");
+    for (let i = 0; i < 22; i++) {
+      const petal = document.createElement("span");
+      petal.className = "petal";
+      petal.style.left = `${Math.random() * 100}%`;
+      petal.style.animationDuration = `${9 + Math.random() * 12}s`;
+      petal.style.animationDelay = `${-Math.random() * 18}s`;
+      petal.style.opacity = `${0.25 + Math.random() * 0.5}`;
+      petal.style.transform = `scale(${0.55 + Math.random() * 0.9})`;
+      petalsContainer.appendChild(petal);
+    }
+
+    // ===== 3. CHUYỂN MÀN HÌNH =====
+    const screens = ["screen1", "screen2", "screen3"].map(id => document.getElementById(id));
+    function showScreen(index) {
+      screens.forEach((screen, i) => {
+        screen.classList.toggle("active", i === index);
+        screen.setAttribute("aria-hidden", i === index ? "false" : "true");
+      });
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    // ===== 4. KIỂM TRA MẬT MÃ & BẮT ĐẦU NHẠC =====
+    const teasingMessages = [
+      "chưa đúng rùi ",
+      "tyeu quên à",
+      "sai lần nữa mai cho ôm cái",
+      "húp nhớ mai cho ôm đấy nhá",
+      "vẫn sai???",
+      "bà chã ơi bà chã quên thật à huhu"
+    ];
+    const audio = document.getElementById("backgroundMusic");
+    audio.src = MUSIC_URL;
+    document.getElementById("lockForm").addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const input = document.getElementById("passcode");
+      const error = document.getElementById("errorMessage");
+      if (input.value.trim() === SECRET_CODE) {
+        error.textContent = "";
+        showScreen(1);
+        // Phát nhạc sau thao tác nhập đúng mã để phù hợp chính sách autoplay.
+        try {
+          await audio.play();
+        } catch (e) {
+          error.textContent = "Nếu nhạc chưa phát, hãy kiểm tra link MP3 hoặc chạm nút phát trên trình duyệt nhé 🎵";
+        }
+      } else {
+        error.textContent = teasingMessages[Math.floor(Math.random() * teasingMessages.length)];
+        input.value = "";
+        input.focus();
+      }
+    });
+
+    // ===== 5. MỞ THIỆP & GÕ TỪNG KÝ TỰ =====
+    let typingStarted = false;
+    const typedMessage = document.getElementById("typedMessage");
+    const cursor = document.getElementById("typingCursor");
+    const signature = document.getElementById("signature");
+    signature.textContent = SIGNATURE;
+
+    function typeMessage() {
+      if (typingStarted) return;
+      typingStarted = true;
+      let index = 0;
+      const typeNext = () => {
+        if (index < MESSAGE.length) {
+          typedMessage.textContent += MESSAGE.charAt(index);
+          index++;
+          // Cuộn nhẹ trong khung thiệp khi lời chúc dài.
+          const letter = document.querySelector(".letter");
+          letter.scrollTop = letter.scrollHeight;
+          const char = MESSAGE.charAt(index - 1);
+          const delay = char === "\n" ? 250 : (".!?。".includes(char) ? 340 : 34);
+          window.setTimeout(typeNext, delay);
+        } else {
+          cursor.hidden = true;
+          signature.hidden = false;
+        }
+      };
+      typeNext();
+    }
+
+    function openLetter() {
+      showScreen(2);
+      typeMessage();
+    }
+    document.getElementById("openLetter").addEventListener("click", openLetter);
+    document.getElementById("tapHint").addEventListener("click", openLetter);
+  </script>
+</body>
+</html>
